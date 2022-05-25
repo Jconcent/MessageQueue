@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Students data producer</title>
+        <link rel="stylesheet" type="text/css" href="../static/assets/css/style.css" th:href="@{/assets/css/style.css}"/>
     </head>
     <body>
         <p>
@@ -37,17 +38,17 @@
                         <label for="place-of-residence">Place of residence:</label>
                         <input type="text" th:field="${personalData.placeOfResidence}" id="place-of-residence"/>
                     </div>
-                    <fieldset>
-                        <legend>Gender</legend>
-                        <div>
-                            <label for="male">Male</label>
-                            <input type="radio" value="male" th:field="${personalData.gender}" id="male" checked/>
-                        </div>
-                        <div>
-                            <label for="female">female</label>
-                            <input type="radio" value="female" th:field="${personalData.gender}" id="female"/>
-                        </div>
-                    </fieldset>
+                    <div>
+                        <select size="3" th:field="${personalData.gender}">
+                            <option disabled value="null">Выберите пол</option>
+                            <option value="male">Мужской</option>
+                            <option value="female">Женский</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="low-income">You are from low-income family?</label>
+                        <input type="checkbox" th:field="${personalData.fromLowIncome}" th:value="${personalData.fromLowIncome}" id="low-income"/>
+                    </div>
                     <div>
                         <button type="submit">Submit</button>
                     </div>

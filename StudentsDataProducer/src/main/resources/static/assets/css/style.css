@@ -1,0 +1,17 @@
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+}
+
+input {
+    width: 300px;
+    height: 20px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+div {
+    margin-top: 10px;
+}
