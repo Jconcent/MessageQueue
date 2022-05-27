@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,6 @@ public class StudentsDataController {
 
     @GetMapping(path = {"/", "/index"})
     public String index(Model model) {
-        amqpAdmin.initialize();
         model.addAttribute("personalData", new PersonalData());
         return "index";
     }
@@ -31,5 +32,10 @@ public class StudentsDataController {
         log.info("New data incoming: {}", personalData);
         rabbitTemplate.convertAndSend(personalData);
         return "index";
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void initMq() {
+        amqpAdmin.initialize();
     }
 }

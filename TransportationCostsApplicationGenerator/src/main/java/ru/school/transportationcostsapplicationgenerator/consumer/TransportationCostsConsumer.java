@@ -27,7 +27,7 @@ public class TransportationCostsConsumer {
         log.info("Transportation costs got a message: {}", personalData);
 
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(pathToPdfDir + personalData.getLastName() + UUID.randomUUID() + "Food.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(pathToPdfDir + personalData.getLastName() + UUID.randomUUID() + "TransportationCosts.pdf"));
 
         document.open();
         Paragraph paragraph = new Paragraph();
