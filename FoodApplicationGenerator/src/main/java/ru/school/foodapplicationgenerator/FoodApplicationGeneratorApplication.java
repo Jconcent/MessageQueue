@@ -1,13 +1,13 @@
-package ru.school.studentsdataproducer;
+package ru.school.foodapplicationgenerator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StudentsDataProducerApplication {
+public class FoodApplicationGeneratorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StudentsDataProducerApplication.class, args);
+        SpringApplication.run(FoodApplicationGeneratorApplication.class, args);
     }
-}
 
+}

@@ -2,6 +2,7 @@ package ru.school.studentsdataproducer.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,11 @@ import ru.school.studentsdataproducer.entity.PersonalData;
 public class StudentsDataController {
 
     private final RabbitTemplate rabbitTemplate;
+    private final AmqpAdmin amqpAdmin;
 
     @GetMapping(path = {"/", "/index"})
     public String index(Model model) {
+        amqpAdmin.initialize();
         model.addAttribute("personalData", new PersonalData());
         return "index";
     }
