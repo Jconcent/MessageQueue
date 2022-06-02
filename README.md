@@ -19,7 +19,7 @@ Learn how to work with a large flow of tasks using RabbitMQ message broker, a po
 ### About exchange:
 In project implement two type of exchange: 
 1) SOCIAL_ASSISTANCE_EXCHANGE - fanout type
-2) GRANT_EXCHAGNE - topic type
+2) GRANT_EXCHANGE - topic type
 
 ## How run:
 1) Open application.properties of 'consumer' applications and set path to directory where documents will save.
