@@ -18,6 +18,13 @@ import ru.school.studentsdataproducer.entity.PersonalData;
 @Controller
 public class StudentsDataController {
 
+    private static final String GRANT_EXCHANGE = "GRANT_EXCHANGE";
+    private static final String SOCIAL_ASSISTANCE_EXCHANGE = "SOCIAL_ASSISTANCE_EXCHANGE";
+    private static final String ROUTING_KEY = "grant.%d.%s";
+    private static final String CONSENT = "consent";
+    private static final String GRANT = "grant";
+    private static final String GUARANTEE_LETTER = "guarantee.letter";
+
     private final RabbitTemplate rabbitTemplate;
     private final AmqpAdmin amqpAdmin;
 
@@ -30,7 +37,12 @@ public class StudentsDataController {
     @PostMapping("/studentsData")
     public String saveStudentsData(@ModelAttribute PersonalData personalData, Model model) {
         log.info("New data incoming: {}", personalData);
+        rabbitTemplate.setExchange(SOCIAL_ASSISTANCE_EXCHANGE);
         rabbitTemplate.convertAndSend(personalData);
+        rabbitTemplate.setExchange(GRANT_EXCHANGE);
+        rabbitTemplate.convertAndSend(String.format(ROUTING_KEY, personalData.getCourse(), CONSENT), personalData);
+        rabbitTemplate.convertAndSend(String.format(ROUTING_KEY, personalData.getCourse(), GRANT), personalData);
+        rabbitTemplate.convertAndSend(String.format(ROUTING_KEY, personalData.getCourse(), GUARANTEE_LETTER), personalData);
         return "index";
     }
 

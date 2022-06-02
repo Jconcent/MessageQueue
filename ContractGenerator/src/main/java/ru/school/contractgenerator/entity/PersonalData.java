@@ -1,4 +1,4 @@
-package ru.school.studentsdataproducer.entity;
+package ru.school.contractgenerator.entity;
 
 import lombok.Data;
 

@@ -33,7 +33,6 @@ public class ApplicationConfig {
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
         template.setMessageConverter(jackson2JsonMessageConverter());
-        template.setExchange("SOCIAL_ASSISTANCE_EXCHANGE");
         return template;
     }
 
@@ -53,8 +52,23 @@ public class ApplicationConfig {
     }
 
     @Bean
+    public Queue grantOtherDocumentsQueue() {
+        return new Queue("grant_other_documents");
+    }
+
+    @Bean
+    public Queue grantContractsQueue() {
+        return new Queue("grant_contracts");
+    }
+
+    @Bean
     public FanoutExchange socialAssistanceExchange() {
         return new FanoutExchange("SOCIAL_ASSISTANCE_EXCHANGE");
+    }
+
+    @Bean
+    public TopicExchange grantExchange() {
+        return new TopicExchange("GRANT_EXCHANGE");
     }
 
     @Bean
@@ -70,5 +84,15 @@ public class ApplicationConfig {
     @Bean
     public Binding transportationCostsBinding() {
         return BindingBuilder.bind(transportationCostsQueue()).to(socialAssistanceExchange());
+    }
+
+    @Bean
+    public Binding grantContractsBinding() {
+        return BindingBuilder.bind(grantContractsQueue()).to(grantExchange()).with("grant.1.*");
+    }
+
+    @Bean
+    public Binding grantOtherDocumentsBinding() {
+        return BindingBuilder.bind(grantOtherDocumentsQueue()).to(grantExchange()).with("grant.#");
     }
 }

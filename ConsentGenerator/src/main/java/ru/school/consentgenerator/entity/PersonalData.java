@@ -1,4 +1,4 @@
-package ru.school.studentsdataproducer.entity;
+package ru.school.consentgenerator.entity;
 
 import lombok.Data;
 
